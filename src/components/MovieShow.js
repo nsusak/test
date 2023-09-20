@@ -13,7 +13,7 @@ const MovieShow = ({ movie }) => {
 
   const description = showFullDescription
     ? movie.overview
-    : `${movie.overview.substring(0, 250)}...`;
+    : `${movie.overview.substring(0, 150)}...`;
 
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
