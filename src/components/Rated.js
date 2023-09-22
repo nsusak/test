@@ -35,16 +35,18 @@ function Rated() {
 
   const movieList = bestRatedMovies.map((movie) => (
     <div key={movie.id}>
-      <MovieShow movie={movie} />
+      <MovieShow movie={movie} showRate />
     </div>
   ));
 
   return (
     <div>
-      <h2>Best Rated Movies</h2>
+      <br />
+      <h2 className="text-center text-danger">Best Rated Movies</h2>
       <Slider ref={sliderRef} {...settings}>
         {movieList}
       </Slider>
+      <br />
     </div>
   );
 }

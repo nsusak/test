@@ -16,7 +16,7 @@ const LandingPage = () => {
     setMovies(result);
   };
   return (
-    <div>
+    <div className="bg-secondary-subtle row">
       <SearchBar onSubmit={handleSearch} />
       {searchTerm && <MovieList movies={movies} searchTerm={searchTerm} />}
       {!searchTerm && <Rated />}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const MovieShow = ({ movie }) => {
+const MovieShow = ({ movie, showRate }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const genres = movie.genres ? movie.genres.join(", ") : "N/A";
   const fallbackImageURL =
@@ -13,14 +13,14 @@ const MovieShow = ({ movie }) => {
 
   const description = showFullDescription
     ? movie.overview
-    : `${movie.overview.substring(0, 150)}...`;
+    : `${movie.overview.substring(0, 100)}...`;
 
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
 
   return (
-    <div className="card mb-3 ms-2" style={{ maxWidth: "540px" }}>
+    <div className="card mb-3 ms-2 shadow" style={{ maxWidth: "540px" }}>
       <div className="row g-0">
         <div className="col-md-4">
           <Link to={`/movie/${movie.id}`}>
@@ -36,6 +36,13 @@ const MovieShow = ({ movie }) => {
           <div className="card-body">
             <h5 className="card-title">{movie.title}</h5>
             <p className="card-text">
+              {showRate && (
+                <React.Fragment>
+                  <br />
+                  <strong>Rating:</strong> {movie.vote_average}
+                </React.Fragment>
+              )}
+              <br />
               <strong>Release Date:</strong> {movie.release_date}
               <br />
               <strong>Genres:</strong> {genres}

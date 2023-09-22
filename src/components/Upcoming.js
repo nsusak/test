@@ -29,7 +29,7 @@ const Upcoming = () => {
     <div className="mt-3">
       <div className="row">
         <div className="col">
-          <h2>Upcoming Movies</h2>
+          <h2 className="text-center text-danger">Upcoming Movies</h2>
         </div>
       </div>
       <div className="row">{movieList}</div>
