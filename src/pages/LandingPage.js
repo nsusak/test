@@ -12,12 +12,21 @@ const LandingPage = () => {
   const handleSearch = async (term) => {
     setSearchTerm(term);
     const result = await getMovieList(term);
-
     setMovies(result);
   };
+
+  const clearSearch = () => {
+    setSearchTerm("");
+  };
+
   return (
     <div className="row">
-      <SearchBar onSubmit={handleSearch} />
+      <SearchBar onSubmit={handleSearch} onClear={clearSearch} />
+      {searchTerm && (
+        <button className="btn btn-link text-danger" onClick={clearSearch}>
+          Clear Search
+        </button>
+      )}
       {searchTerm && <MovieList movies={movies} searchTerm={searchTerm} />}
       {!searchTerm && <Rated />}
       {!searchTerm && <Upcoming />}

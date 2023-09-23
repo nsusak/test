@@ -18,48 +18,57 @@ const MovieShow = ({ movie, showRate }) => {
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
+  const linkStyle = {
+    textDecoration: "none",
+    color: "inherit",
+  };
 
   return (
-    <div className="card mb-3 ms-2 shadow" style={{ maxWidth: "540px" }}>
-      <div className="row g-0">
-        <div className="col-md-4">
-          <Link to={`/movie/${movie.id}`}>
-            <img
-              className="img-fluid rounded-start"
-              src={imageUrl}
-              alt="poster"
-              style={{ height: "300px", objectFit: "cover" }}
-            />
-          </Link>
-        </div>
-        <div className="col-md-8">
-          <div className="card-body">
-            <h5 className="card-title">{movie.title}</h5>
-            <p className="card-text">
-              {showRate && (
-                <React.Fragment>
+    <div>
+      <Link to={`/movie/${movie.id}`} style={linkStyle}>
+        <div className="card mb-3 ms-2 shadow" style={{ maxWidth: "540px" }}>
+          <div className="row g-0">
+            <div className="col-md-4 ">
+              <img
+                className="img-fluid rounded-start"
+                src={imageUrl}
+                alt="poster"
+                style={{ height: "300px", objectFit: "cover" }}
+              />
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <h5 className="card-title">{movie.title}</h5>
+                <p className="card-text">
+                  {showRate && (
+                    <React.Fragment>
+                      <br />
+                      <strong>Rating:</strong> {movie.vote_average}
+                    </React.Fragment>
+                  )}
                   <br />
-                  <strong>Rating:</strong> {movie.vote_average}
-                </React.Fragment>
-              )}
-              <br />
-              <strong>Release Date:</strong> {movie.release_date}
-              <br />
-              <strong>Genres:</strong> {genres}
-              <br />
-              <strong>Description:</strong> {description}
-              {movie.overview.length > 150 && (
-                <button
-                  onClick={toggleDescription}
-                  className=" btn btn-outline-danger"
-                >
-                  {showFullDescription ? "Read Less" : "Read More"}
-                </button>
-              )}
-            </p>
+                  <strong>Release Date:</strong> {movie.release_date}
+                  <br />
+                  <strong>Genres:</strong> {genres}
+                  <br />
+                  <strong>Description:</strong> {description}
+                  {movie.overview.length > 150 && (
+                    <button
+                      onClick={(e) => {
+                        toggleDescription();
+                        e.preventDefault();
+                      }}
+                      className="btn btn-outline-danger"
+                    >
+                      {showFullDescription ? "Read Less" : "Read More"}
+                    </button>
+                  )}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

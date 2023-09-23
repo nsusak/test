@@ -76,7 +76,7 @@ const MovieDetail = () => {
                       <strong>Length:</strong> {movie.length} minutes
                     </p>
                     <p>
-                      <strong>budget:</strong> {movie.budget}
+                      <strong>budget:</strong> {movie.budget} $
                     </p>
                     <p>
                       <strong>Release Date:</strong> {movie.release_date}
@@ -125,7 +125,11 @@ const MovieDetail = () => {
                     >
                       <div>
                         <img
-                          src={`https://image.tmdb.org/t/p/w185${castMember.profile_path}`}
+                          src={
+                            castMember.profile_path
+                              ? `https://image.tmdb.org/t/p/w185${castMember.profile_path}`
+                              : "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
+                          }
                           alt={`${castMember.name} profile`}
                           className="img-fluid rounded-start"
                           style={{ height: "200px", objectFit: "contain" }}

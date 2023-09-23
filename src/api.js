@@ -14,7 +14,6 @@ const fetchGenres = async () => {
     genresResponse.data.genres.forEach((genre) => {
       genreMap[genre.id] = genre.name;
     });
-    console.log(genreMap, "genre map");
     return genreMap;
   } catch (error) {
     console.error("Error fetching genres:", error);
@@ -111,7 +110,6 @@ const getBestRatedMovies = async () => {
       genres: movie.genre_ids.map((genreId) => genreMap[genreId]),
     }));
 
-    console.log(moviesWithGenres, "Best Rated Movies");
     return moviesWithGenres;
   } catch (error) {
     console.error("Error fetching best rated movies:", error);
@@ -132,7 +130,6 @@ const getUpcomingMovies = async () => {
       genres: movie.genre_ids.map((genreId) => genreMap[genreId]),
     }));
 
-    console.log(moviesWithGenres, "Upcoming Movies");
     return moviesWithGenres;
   } catch (error) {
     console.error("Error fetching upcoming movies:", error);
@@ -153,12 +150,12 @@ const fetchSingleMovie = async (movieId) => {
     const movie = movieResponse.data;
 
     const genres = movie.genres.map((genreId) => genreId.name);
-    console.log(videosResponse, "RESPONSE ZA TRAILER");
+
     const videoId =
       videosResponse.data.results.length > 0
         ? `${videosResponse.data.results[0].key}`
         : null;
-    console.log(movie, "MORE DETAIL");
+
     const movieDetails = {
       id: movie.id,
       title: movie.title,
@@ -172,7 +169,7 @@ const fetchSingleMovie = async (movieId) => {
       overview: movie.overview,
       cast,
     };
-    console.log(movieDetails);
+
     return movieDetails;
   } catch (error) {
     console.error("Error fetching movie details:", error);
