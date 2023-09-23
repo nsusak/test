@@ -23,7 +23,10 @@ const LandingPage = () => {
     <div className="row">
       <SearchBar onSubmit={handleSearch} onClear={clearSearch} />
       {searchTerm && (
-        <button className="btn btn-link text-danger" onClick={clearSearch}>
+        <button
+          className="btn btn-link text-danger text-center"
+          onClick={clearSearch}
+        >
           Clear Search
         </button>
       )}

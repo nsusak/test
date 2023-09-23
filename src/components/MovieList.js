@@ -36,19 +36,8 @@ const MovieList = ({ searchTerm }) => {
   return (
     <div className="">
       <h2 className="text-center text-danger">Total Results: {totalResults}</h2>
-      <div className="row">
-        {movies.map((movie) => (
-          <div
-            key={movie.id}
-            className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-          >
-            <MovieShow movie={movie} />
-          </div>
-        ))}
-      </div>
-
-      <div className="row text-center">
-        <div className="col">
+      <div className="row ">
+        <div className="d-flex justify-content-between mb-3">
           <button
             onClick={handlePrevPage}
             disabled={currentPage === 1}
@@ -59,11 +48,21 @@ const MovieList = ({ searchTerm }) => {
           <button
             onClick={handleNextPage}
             disabled={movies.length < 20}
-            className="btn btn-secondary ms-2"
+            className="btn btn-secondary"
           >
             Next
           </button>
         </div>
+      </div>
+      <div className="row">
+        {movies.map((movie) => (
+          <div
+            key={movie.id}
+            className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+          >
+            <MovieShow movie={movie} />
+          </div>
+        ))}
       </div>
     </div>
   );
