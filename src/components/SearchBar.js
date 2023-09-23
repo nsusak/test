@@ -12,10 +12,10 @@ function SearchBar({ onSubmit }) {
   };
   return (
     <div className="text-bg-secondary p-3 text-center">
-      <div class="input-group input-group-lg mb-3 container">
+      <div className="input-group input-group-lg mb-3 container">
         <input
           type="text"
-          class="form-control"
+          className="form-control"
           placeholder="Enter a movie name"
           aria-label="Enter a movie name"
           value={term}
@@ -26,7 +26,7 @@ function SearchBar({ onSubmit }) {
             }
           }}
         />
-        <button class="btn btn-danger" type="button" onClick={handleSearch}>
+        <button className="btn btn-danger" type="button" onClick={handleSearch}>
           Search
         </button>
       </div>

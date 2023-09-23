@@ -14,9 +14,28 @@ const fetchGenres = async () => {
     genresResponse.data.genres.forEach((genre) => {
       genreMap[genre.id] = genre.name;
     });
+    console.log(genreMap, "genre map");
     return genreMap;
   } catch (error) {
     console.error("Error fetching genres:", error);
+    throw error;
+  }
+};
+
+const fetchMovieCast = async (movieId) => {
+  try {
+    const creditsUrl = `https://api.themoviedb.org/3/movie/${movieId}/credits`;
+
+    const response = await axios.get(creditsUrl, {
+      params: {
+        api_key: apiKey,
+      },
+    });
+
+    const cast = response.data.cast;
+    return cast;
+  } catch (error) {
+    console.error("Error fetching movie cast:", error);
     throw error;
   }
 };
@@ -120,18 +139,43 @@ const getUpcomingMovies = async () => {
     throw error;
   }
 };
-
 const fetchSingleMovie = async (movieId) => {
   try {
-    const response = await axios.get(`${apiUrl}/movie/${movieId}`, {
-      params: {
-        api_key: apiKey,
-      },
-    });
-    console.log(response, " response iz fetch single");
-    return response.data;
+    const cast = await fetchMovieCast(movieId);
+    const movieUrl = `${apiUrl}/movie/${movieId}`;
+    const videosUrl = `${apiUrl}/movie/${movieId}/videos`;
+
+    const [movieResponse, videosResponse] = await Promise.all([
+      axios.get(movieUrl, { params: { api_key: apiKey } }),
+      axios.get(videosUrl, { params: { api_key: apiKey } }),
+    ]);
+
+    const movie = movieResponse.data;
+
+    const genres = movie.genres.map((genreId) => genreId.name);
+    console.log(videosResponse, "RESPONSE ZA TRAILER");
+    const videoId =
+      videosResponse.data.results.length > 0
+        ? `${videosResponse.data.results[0].key}`
+        : null;
+    console.log(movie, "MORE DETAIL");
+    const movieDetails = {
+      id: movie.id,
+      title: movie.title,
+      poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      genres: genres,
+      length: movie.runtime,
+      release_date: movie.release_date,
+      video_id: videoId,
+      tagline: movie.tagline,
+      budget: movie.budget,
+      overview: movie.overview,
+      cast,
+    };
+    console.log(movieDetails);
+    return movieDetails;
   } catch (error) {
-    console.error(`Error fetching movie with ID ${movieId}:`, error);
+    console.error("Error fetching movie details:", error);
     throw error;
   }
 };
