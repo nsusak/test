@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchSingleMovie } from "../api";
+
 import YouTube from "react-youtube";
 
 const MovieDetail = () => {
@@ -76,12 +77,35 @@ const MovieDetail = () => {
                       <strong>Length:</strong> {movie.length} minutes
                     </p>
                     <p>
-                      <strong>budget:</strong> {movie.budget} $
+                      <strong>Budget:</strong> {movie.budget} $
+                    </p>
+                    <p>
+                      <strong>Revenue:</strong> {movie.revenue} $
                     </p>
                     <p>
                       <strong>Release Date:</strong> {movie.release_date}
                     </p>
                     <p>{movie.overview}</p>
+                  </div>
+                  <div>
+                    <div className="row ms-2">
+                      <p>
+                        <strong>Recommended</strong>
+                      </p>
+                      {movie.recommendations.slice(0, 3).map((recom) => (
+                        <div
+                          key={recom.id}
+                          className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+                        >
+                          <img
+                            src={`https://image.tmdb.org/t/p/w500${recom.poster_path}`}
+                            alt={recom.title}
+                            className="img-fluid rounded-end"
+                          />
+                          {recom.title}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
                 <div className="col-md-4">

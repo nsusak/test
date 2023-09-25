@@ -141,13 +141,16 @@ const fetchSingleMovie = async (movieId) => {
     const cast = await fetchMovieCast(movieId);
     const movieUrl = `${apiUrl}/movie/${movieId}`;
     const videosUrl = `${apiUrl}/movie/${movieId}/videos`;
-
-    const [movieResponse, videosResponse] = await Promise.all([
-      axios.get(movieUrl, { params: { api_key: apiKey } }),
-      axios.get(videosUrl, { params: { api_key: apiKey } }),
-    ]);
+    const recommendationsUrl = `${apiUrl}/movie/${movieId}/recommendations`;
+    const [movieResponse, videosResponse, recommendsResponse] =
+      await Promise.all([
+        axios.get(movieUrl, { params: { api_key: apiKey } }),
+        axios.get(videosUrl, { params: { api_key: apiKey } }),
+        axios.get(recommendationsUrl, { params: { api_key: apiKey } }),
+      ]);
 
     const movie = movieResponse.data;
+    const recommendations = recommendsResponse.data.results;
 
     const genres = movie.genres.map((genreId) => genreId.name);
 
@@ -167,9 +170,11 @@ const fetchSingleMovie = async (movieId) => {
       tagline: movie.tagline,
       budget: movie.budget,
       overview: movie.overview,
+      revenue: movie.revenue,
+      recommendations,
       cast,
     };
-
+    console.log(movieDetails);
     return movieDetails;
   } catch (error) {
     console.error("Error fetching movie details:", error);

@@ -7,12 +7,17 @@ const MovieList = ({ searchTerm }) => {
   const [movies, setMovies] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [search, setSearch] = useState(searchTerm);
   useEffect(() => {
+    console.log(search, searchTerm);
+    if (search !== searchTerm) {
+      setSearch(searchTerm);
+      setCurrentPage(1);
+    }
     const fetchMovies = async () => {
       try {
         const { totalResults, movies } = await getMovieList(
-          searchTerm,
+          search,
           currentPage
         );
         setTotalResults(totalResults);
@@ -23,7 +28,7 @@ const MovieList = ({ searchTerm }) => {
     };
 
     fetchMovies();
-  }, [searchTerm, currentPage]);
+  }, [search, searchTerm, currentPage]);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
