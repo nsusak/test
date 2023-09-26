@@ -56,7 +56,6 @@ const fetchMovies = async (endpoint, queryParams) => {
 
 const getMovieList = async (searchTerm, page = 1) => {
   try {
-    const apiKey = "863e86b41b9bbc10d09d252973897073";
     const apiUrl = "https://api.themoviedb.org/3/search/movie";
     const genresUrl = "https://api.themoviedb.org/3/genre/movie/list";
 
@@ -100,8 +99,11 @@ const getBestRatedMovies = async () => {
   try {
     const genreMap = await fetchGenres();
 
-    const moviesResponse = await fetchMovies("discover/movie", {
-      sort_by: "vote_average.desc",
+    // const moviesResponse = await fetchMovies("discover/movie", {
+    //   sort_by: "vote_average.desc",
+    //   page: 1,
+    // });
+    const moviesResponse = await fetchMovies("movie/top_rated", {
       page: 1,
     });
 
